@@ -27,7 +27,7 @@ def obtener_resumen_valores_unicos(df):
     })
     
     return resumen_valores_unicos
-def resaltar_filas(df, color='blue', indices_a_resaltar=[0], axis=1):
+def resaltar_filas(df, color='#D2F5A2', indices_a_resaltar=[0], axis=1):
     """
     Resalta filas específicas en un DataFrame con un color dado.
 
@@ -54,7 +54,7 @@ def resaltar_filas(df, color='blue', indices_a_resaltar=[0], axis=1):
 
 import numpy as np
 
-def resaltar_filas_columnas(df, color1='blue', color2 = 'red', indices_a_resaltar=None, columnas_a_resaltar=None):
+def resaltar_filas_columnas(df, color1='#D2F5A2', color2 = 'red', indices_a_resaltar=None, columnas_a_resaltar=None):
     """
     Resalta filas y columnas específicas en un DataFrame con un color dado.
 
