@@ -27,3 +27,66 @@ def obtener_resumen_valores_unicos(df):
     })
     
     return resumen_valores_unicos
+def resaltar_filas(df, color='blue', indices_a_resaltar=[0], axis=1):
+    """
+    Resalta filas específicas en un DataFrame con un color dado.
+
+    Parameters:
+    - df: DataFrame
+    - color: str
+      Color de resaltado, por ejemplo, 'yellow', 'lightblue', etc.
+    - indices_a_resaltar: list of int
+      Lista de índices de las filas que se deben resaltar.
+    - axis: int, default: 1
+      0 para resaltar filas, 1 para resaltar columnas.
+
+    Returns:
+    - Styler object
+    """
+    #if indices_a_resaltar is None:
+    #    indices_a_resaltar = []
+
+    def _resaltar_filas(s):
+        return [f'background-color: {color}' if i in indices_a_resaltar else '' for i in range(len(s))]
+
+    styled_df = df.style.apply(_resaltar_filas, axis=axis)
+    return styled_df
+
+import numpy as np
+
+def resaltar_filas_columnas(df, color1='blue', color2 = 'red', indices_a_resaltar=None, columnas_a_resaltar=None):
+    """
+    Resalta filas y columnas específicas en un DataFrame con un color dado.
+
+    Parameters:
+    - df: DataFrame
+    - color: str
+      Color de resaltado, por ejemplo, 'yellow', 'lightblue', etc.
+    - indices_a_resaltar: list of int, default: None
+      Lista de índices de las filas que se deben resaltar.
+    - columnas_a_resaltar: list of str, default: None
+      Lista de nombres de columnas que se deben resaltar.
+
+    Returns:
+    - Styler object
+    """
+    if indices_a_resaltar is None:
+        indices_a_resaltar = []
+
+    if columnas_a_resaltar is None:
+        columnas_a_resaltar = []
+
+    def _resaltar_filas_columnas(data):
+        styles = np.full_like(data, '', dtype=object)
+
+        for i in indices_a_resaltar:
+            styles[i, :] = f'background-color: {color1}'
+
+        for col in columnas_a_resaltar:
+            if col in df.columns:
+                styles[:, df.columns.get_loc(col)] = f'background-color: {color2}'
+
+        return styles
+
+    styled_df = df.style.apply(_resaltar_filas_columnas, axis=None)
+    return styled_df
